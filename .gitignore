@@ -1,2 +1,18 @@
-node_modules
-build
+# environment variables
+*.env
+
+# install and build artefacts
+node_modules/
+build/
+
+# debug files
+npm-debug*
+
+# logs
+*.log
+
+# IDE local files
+.idea/
+
+# System local files
+.DS_Store
