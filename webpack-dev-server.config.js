@@ -16,13 +16,14 @@ const config = {
     contentBase: 'src/static', // Relative directory for base of server
     hot: true, // Live-reload
     inline: true,
-    port: 3000,
+    historyApiFallback: true,
+    port: 8081,
     host: '0.0.0.0',
   },
   devtool: 'eval',
   output: {
     path: path.resolve(__dirname, 'build'), // Path of output file
-    filename: 'app.js',
+    filename: 'bundle.js',
   },
   plugins: [
     // Enables Hot Modules Replacement
