@@ -28,18 +28,15 @@ const config = {
     }),
     // Transfer Files
     new TransferWebpackPlugin([
-      {from: 'www'},
+      {from: 'static'},
     ], path.resolve(__dirname, 'src')),
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
+        test: /\.jsx?$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
       },
     ],
   },

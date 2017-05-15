@@ -13,11 +13,11 @@ const config = {
   },
   // Server Configuration options
   devServer: {
-    contentBase: 'src/www', // Relative directory for base of server
+    contentBase: 'src/static', // Relative directory for base of server
     hot: true, // Live-reload
     inline: true,
-    port: 3000, // Port Number
-    host: 'localhost', // Change to '0.0.0.0' for external facing server
+    port: 3000,
+    host: '0.0.0.0',
   },
   devtool: 'eval',
   output: {
@@ -29,18 +29,15 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     // Moves files
     new TransferWebpackPlugin([
-      {from: 'www'},
+      {from: 'static'},
     ], path.resolve(__dirname, 'src')),
   ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
+        test: /\.jsx?$/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
       },
     ],
   },
