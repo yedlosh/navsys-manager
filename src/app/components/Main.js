@@ -23,15 +23,16 @@ const styles = {
   }
 };
 
-const muiTheme = getMuiTheme({
-    ...darkBaseTheme,
-  palette: {
-    ...darkBaseTheme.palette,
-    primary1Color: blueGrey300,
-    primary2Color: red700,
-    accent1Color: deepOrange500,
-  },
-});
+// const muiTheme = getMuiTheme({
+//     ...darkBaseTheme,
+//   palette: {
+//     ...darkBaseTheme.palette,
+//     primary1Color: blueGrey300,
+//     primary2Color: red700,
+//     accent1Color: deepOrange500,
+//   },
+// });
+const muiTheme = getMuiTheme();
 
 export default class Main extends Component {
   constructor(props, context) {

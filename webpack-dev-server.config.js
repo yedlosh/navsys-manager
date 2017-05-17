@@ -1,3 +1,4 @@
+require('dotenv-safe').load();
 const webpack = require('webpack');
 const path = require('path');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
@@ -26,12 +27,17 @@ const config = {
     filename: 'bundle.js',
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        API_URL: JSON.stringify(process.env.API_URL)
+      }
+    }),
     // Enables Hot Modules Replacement
     new webpack.HotModuleReplacementPlugin(),
     // Moves files
     new TransferWebpackPlugin([
       {from: 'static'},
-    ], path.resolve(__dirname, 'src')),
+    ], path.resolve(__dirname, 'src'))
   ],
   module: {
     rules: [

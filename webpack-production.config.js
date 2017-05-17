@@ -1,3 +1,4 @@
+require('dotenv-safe').load();
 const webpack = require('webpack');
 const path = require('path');
 const TransferWebpackPlugin = require('transfer-webpack-plugin');
