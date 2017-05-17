@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const Locations = () => (
-  <h1>Locations</h1>
-);
+export default class Locations extends Component {
 
-export default Locations;
+  render() {
+    return (
+      <h1>Locations</h1>
+    );
+  }
+}
