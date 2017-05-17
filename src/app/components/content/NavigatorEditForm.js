@@ -3,19 +3,30 @@ import {RaisedButton, TextField} from "material-ui";
 
 export default class NavigatorEditForm extends Component {
   static propTypes = {
-    navigator: React.PropTypes.object.isRequired,
-    onSaveEdit: React.PropTypes.func.isRequired
+    isNew: React.PropTypes.bool,
+    navigator: React.PropTypes.object,
+    onSaveEdit: React.PropTypes.func.isRequired,
+    style: React.PropTypes.object
   };
 
   constructor(props) {
     super(props);
-    this.state = {
-      navigator: {...props.navigator, strip: JSON.stringify(props.navigator)}
-    };
+    if(props.isNew) {
+      this.state = {
+        navigator: {}
+      };
+    } else {
+      this.state = {
+        navigator: {...props.navigator, strip: JSON.stringify(props.navigator.strip)}
+      };
+    }
   }
 
   handleChange = (event, newValue) => {
     switch(event.target.id){
+      case 'text-id':
+        this.setState({navigator: {...this.state.navigator, id: newValue}});
+        break;
       case 'text-ip':
         this.setState({navigator: {...this.state.navigator, ip: newValue}});
         break;
@@ -29,26 +40,45 @@ export default class NavigatorEditForm extends Component {
   };
 
   handleSave = (event) => {
-    const navigator = {...this.state.navigator, strip: JSON.parse(this.state.navigator.strip)};
-    this.props.onSaveEdit(navigator);
+    try {
+      const navigator = {...this.state.navigator, strip: JSON.parse(this.state.navigator.strip)};
+      this.props.onSaveEdit(navigator);
+    } catch (error) {
+      if(error.name === 'SyntaxError') {
+        console.error("That JSON is fucked up.");
+      }
+    }
   };
 
   render() {
     return (
-      <div>
+      <div style={this.props.style ? this.props.style : {}}>
+        {this.props.isNew &&
+          <div>
+            <TextField
+              id="text-id"
+              defaultValue={this.state.navigator.id}
+              hintText="ID"
+              onChange={this.handleChange}
+            /><br />
+          </div>
+        }
         <TextField
           id="text-ip"
           defaultValue={this.state.navigator.ip}
+          hintText="IP"
           onChange={this.handleChange}
         /><br />
         <TextField
           id="text-mac"
           defaultValue={this.state.navigator.mac}
+          hintText="MAC"
           onChange={this.handleChange}
         /><br />
         <TextField
           id="text-endings"
-          defaultValue={JSON.stringify(this.state.navigator.strip)}
+          defaultValue={this.state.navigator.strip}
+          hintText="Strip endings"
           onChange={this.handleChange}
         /><br />
         <RaisedButton label="Save" primary={true} style={{marginTop: 12}} onTouchTap={this.handleSave}/>
