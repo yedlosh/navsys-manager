@@ -105,7 +105,6 @@ export default class EntityManager extends Component {
   };
 
   render() {
-    console.log("here");
     const {dataArray} = this.state;
     let tableRows = [];
 
